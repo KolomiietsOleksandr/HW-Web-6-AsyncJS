@@ -20,6 +20,8 @@ button {
     color: #fff;
     border: none;
     cursor: pointer;
+    margin: 10px;
+    display: inline-block;
 }
 
 button:hover {
@@ -29,4 +31,11 @@ button:hover {
 #output {
     margin-top: 20px;
     font-weight: bold;
+}
+
+#image{
+    margin-top: 15px;
+    margin-bottom: 15px;
+    width: 680px;
+    height: 400px;
 }
