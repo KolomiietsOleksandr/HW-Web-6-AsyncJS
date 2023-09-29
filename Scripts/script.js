@@ -70,3 +70,43 @@ document.addEventListener("DOMContentLoaded", function () {
         });
     }
 });
+
+document.addEventListener("DOMContentLoaded", function () {
+    const validRequestButton = document.getElementById("validRequest");
+    const errorRequestButton = document.getElementById("errorRequest");
+    const output = document.getElementById("outputGit");
+    const errorOutput = document.getElementById("errorOutput");
+
+    validRequestButton.addEventListener("click", () => {
+        makeGitHubRequest("KolomiietsOleksandr");
+    });
+
+    errorRequestButton.addEventListener("click", () => {
+        makeGitHubRequest("nonexistent-username");
+    });
+
+    function makeGitHubRequest(username) {
+        const xhr = new XMLHttpRequest();
+        const url = `https://api.github.com/users/${username}`;
+
+        xhr.open("GET", url, true);
+
+        xhr.onload = function () {
+            if (xhr.status === 200) {
+                const response = JSON.parse(xhr.responseText);
+                outputGit.textContent = `GitHub Username: ${response.login}`;
+                errorOutput.textContent = "";
+            } else {
+                outputGit.textContent = "";
+                errorOutput.textContent = `Error: ${xhr.status} - ${xhr.statusText}`;
+            }
+        };
+
+        xhr.onerror = function () {
+            outputGit.textContent = "";
+            errorOutput.textContent = "Network error occurred.";
+        };
+
+        xhr.send();
+    }
+});
